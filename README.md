@@ -8,4 +8,3 @@ I hope this project will succeed and will be played by a lot of casual players.
 Always remember "People dreams... Have no end..."
 
 Good Luck for the development of this project.
-Have a nice day!
