@@ -2,15 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace LGAMES.Jinga
+namespace LGAMES.Jenga
 {
     public class MainUIManager : MonoBehaviour
     {
 
-        [ContextMenu("Display Message OnClick")]
-        public void DisplayMessageOnClick() {
-            Debug.Log("Game Started!", this);
-        }
+
 
     }
 }
