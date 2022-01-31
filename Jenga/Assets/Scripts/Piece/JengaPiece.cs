@@ -8,22 +8,22 @@ namespace LGAMES.Jenga
     public class JengaPiece : MonoBehaviour, IGameState
     {
 
-        #region Attributes ------------------------------------------------------------------------
+        #region :: Inspector Variables
         [Header("Properties")]
         [SerializeField] private MeshRenderer _meshRenderer;
         [SerializeField] private Rigidbody _rigidbody;
-        [Header("Material Skin")]
-        [SerializeField] private Material defaultSkin;
-        [SerializeField] private Material hoverSkin;
-        [SerializeField] private Material selectedSkin;
-        #endregion End Attributes -----------------------------------------------------------------
+        #endregion 
 
-        #region Variables -------------------------------------------------------------------------
+        #region :: Variables 
+        private Material defaultSkin;
+        private Material hoverSkin;
+        private Material selectedSkin;
+
         private Vector3 savedVelocity = Vector3.zero;
         private Vector3 savedAngularVelocity = Vector3.zero;
-        #endregion Variables ----------------------------------------------------------------------
+        #endregion 
 
-        #region Cycles ----------------------------------------------------------------------------
+        #region :: Lifecycles 
         private void OnEnable()
         {
             GameStateManager.EventGameStateUpdate += OnGameStateUpdate;
@@ -33,33 +33,26 @@ namespace LGAMES.Jenga
         {
             GameStateManager.EventGameStateUpdate -= OnGameStateUpdate;
         }
-        #endregion End Cycles ---------------------------------------------------------------------
+        #endregion
 
-        #region Properties ------------------------------------------------------------------------
-        
+        #region :: Properties 
         public Rigidbody GetRigidbody()
         {
             return _rigidbody;
         }
 
-        public void SetDefaultSkin()
+        public void SetSkinProperties(
+            Material defaultSkin, 
+            Material hoverSkin, 
+            Material selectedSkin)
         {
-            _meshRenderer.material = defaultSkin;
+            this.defaultSkin = defaultSkin;
+            this.hoverSkin = hoverSkin;
+            this.selectedSkin = selectedSkin;
         }
+        #endregion 
 
-        public void SetHoverSkin()
-        {
-            _meshRenderer.material = hoverSkin;
-        }
-
-        public void SetSelectedSkin()
-        {
-            _meshRenderer.material = selectedSkin;
-        }
-
-        #endregion End Properties -----------------------------------------------------------------
-
-        #region Actions ---------------------------------------------------------------------------
+        #region :: Events 
         public void OnGameStateUpdate(GameState newGameState)
         {
             switch (newGameState)
@@ -76,22 +69,37 @@ namespace LGAMES.Jenga
                     break;
             }
         }
-        #endregion End Actions --------------------------------------------------------------------
+        #endregion 
 
-        #region Functions -------------------------------------------------------------------------
+        #region :: Functions
         public void DragPiece(Vector3 newPosition) 
         {
             transform.position = newPosition;
         }
-        #endregion Functions ----------------------------------------------------------------------
 
-        #region Debugger --------------------------------------------------------------------------
+        public void UseDefaultSkin()
+        {
+            _meshRenderer.material = defaultSkin;
+        }
+
+        public void UseHoverSkin()
+        {
+            _meshRenderer.material = hoverSkin;
+        }
+
+        public void UseSelectedSkin()
+        {
+            _meshRenderer.material = selectedSkin;
+        }
+        #endregion 
+
+        #region :: Testing
         [ContextMenu("Print Object Name")]
         public void PrintObjectName()
         {
             Debug.Log("Jenga Piece: " + transform.name, this);
         }
-        #endregion End Debugger -------------------------------------------------------------------
+        #endregion 
 
     }
 }

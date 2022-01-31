@@ -8,31 +8,31 @@ namespace LGAMES.Jenga
     public class CameraManager : MonoBehaviour
     {
 
-        #region Attributes ------------------------------------------------------------------------
+        #region :: Inspector Variables
         [SerializeField] private Camera currentCamera;
         [SerializeField] private Transform targetObject;
         //[SerializeField] private float distanceToObject;
-        #endregion End Attributes -----------------------------------------------------------------
+        #endregion
 
-        #region Variables -------------------------------------------------------------------------
+        #region :: Variables
         private Vector3 previousPosition;
-        #endregion End Variables ------------------------------------------------------------------
+        #endregion
 
-        #region Cycles ----------------------------------------------------------------------------
+        #region :: Lifecycles
         private void Start()
         {
             transform.position = targetObject.position;
         }
-        #endregion End Cycles ---------------------------------------------------------------------
+        #endregion 
 
-        #region Properties ------------------------------------------------------------------------
+        #region :: Properties
         public Camera GetCurrentCamera()
         {
             return currentCamera;
         }
-        #endregion Properties ---------------------------------------------------------------------
+        #endregion 
 
-        #region Functions -------------------------------------------------------------------------
+        #region :: Functions 
         public void OnInputBegin()
         {
             previousPosition = currentCamera.ScreenToViewportPoint(Mouse.current.position.ReadValue());
@@ -62,7 +62,7 @@ namespace LGAMES.Jenga
 
             previousPosition = newPosition;
         }
-        #endregion End Functions ------------------------------------------------------------------
+        #endregion 
 
     }
 }

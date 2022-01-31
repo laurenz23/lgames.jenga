@@ -46,9 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _meshRenderer: {fileID: 3355235480595459947}
   _rigidbody: {fileID: 7327224945632268013}
-  defaultSkin: {fileID: 2100000, guid: 97c9e81bacddd524590b626463b01407, type: 2}
-  hoverSkin: {fileID: 2100000, guid: d2852f74e00825941845e83c40efdd12, type: 2}
-  selectedSkin: {fileID: 2100000, guid: a50b02031449e0646a5226a61d819d2f, type: 2}
 --- !u!1 &7002986710803535608
 GameObject:
   m_ObjectHideFlags: 0

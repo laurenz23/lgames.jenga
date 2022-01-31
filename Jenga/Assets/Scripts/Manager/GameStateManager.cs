@@ -20,46 +20,46 @@ namespace LGAMES.Jenga
     public class GameStateManager : MonoBehaviour
     {
 
-        #region Class Instance --------------------------------------------------------------------
+        #region :: Variables 
+        private GameState currentGameState;
+        #endregion 
+
+        #region :: Class Reference
         private static GameStateManager instance;
 
         public static GameStateManager Instance()
         {
             return instance;
         }
-        #endregion End Class Instance -------------------------------------------------------------
+        #endregion 
 
-        #region Variables -------------------------------------------------------------------------
-        private GameState currentGameState;
-        #endregion End Variables ------------------------------------------------------------------
-
-        #region Listener --------------------------------------------------------------------------
+        #region :: Listeners 
         public delegate void ListenerGameStateUpdate(GameState newGameState);
         public static event ListenerGameStateUpdate EventGameStateUpdate;
-        #endregion End Listener -------------------------------------------------------------------
+        #endregion 
 
-        #region Cycles ----------------------------------------------------------------------------
+        #region :: Cycles 
         private void Awake()
         {
             if (instance == null)
                 instance = this;
         }
-        #endregion End Cycles ---------------------------------------------------------------------
+        #endregion 
 
-        #region Properties ------------------------------------------------------------------------
+        #region :: Properties 
         public GameState GetCurrentGameState()
         {
             return currentGameState;
         }
-        #endregion End Properties -----------------------------------------------------------------
+        #endregion 
 
-        #region Events ----------------------------------------------------------------------------
+        #region :: Events 
         public void SetGameState(GameState newGameState)
         {
             currentGameState = newGameState;
             EventGameStateUpdate?.Invoke(currentGameState);
         }
-        #endregion End Events ---------------------------------------------------------------------
+        #endregion 
 
     }
 }
