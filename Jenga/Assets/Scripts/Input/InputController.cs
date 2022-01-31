@@ -14,20 +14,20 @@ namespace LGAMES.Jenga
     public class InputController: MonoBehaviour
     {
 
-        #region Attributes ------------------------------------------------------------------------
-        [SerializeField] private CameraManager cameraManager;
-        #endregion End Attributes -----------------------------------------------------------------
-
-        #region Variables -------------------------------------------------------------------------
+        #region :: Variables 
         private Ray ray;
         private RaycastHit hit;
 
         private JengaPiece jengaPieceSelected;
         private Vector3 offset;
         private float zCoordinate;
-        #endregion End Variables ------------------------------------------------------------------
+        #endregion 
 
-        #region Cycles ----------------------------------------------------------------------------
+        #region :: Class Reference
+        [SerializeField] private CameraManager cameraManager;
+        #endregion 
+
+        #region :: Lifecycles 
         private void OnEnable()
         {
             InputManager.EventMouseLeftClickStart += ScreenInputStart;
@@ -47,7 +47,7 @@ namespace LGAMES.Jenga
 
         private void Update()
         {
-            // move piece
+            // move jenga piece
             if (jengaPieceSelected != null)
             {
                 jengaPieceSelected.transform.position = GetMouseWorldPos() + offset;
@@ -58,9 +58,9 @@ namespace LGAMES.Jenga
                 cameraManager.OnInputPerforming();
             }
         }
-        #endregion End Cycles ---------------------------------------------------------------------
+        #endregion 
 
-        #region Properties ------------------------------------------------------------------------
+        #region :: Properties 
         public void SetEnabled()
         {
             enabled = true;
@@ -70,9 +70,9 @@ namespace LGAMES.Jenga
         {
             enabled = false;
         }
-        #endregion End Properties -----------------------------------------------------------------
+        #endregion 
 
-        #region Actions ---------------------------------------------------------------------------
+        #region :: Events 
         private void ScreenInputStart(InputAction.CallbackContext context)
         {
             cameraManager.OnInputBegin();
@@ -84,7 +84,7 @@ namespace LGAMES.Jenga
                 if (hit.transform.CompareTag("JengaPiece"))
                 {
                     jengaPieceSelected = hit.transform.GetComponentInParent<JengaPiece>();
-                    jengaPieceSelected.SetSelectedSkin();
+                    jengaPieceSelected.UseSelectedSkin();
 
                     zCoordinate = Camera.main.WorldToScreenPoint(jengaPieceSelected.transform.position).z;
                     offset = jengaPieceSelected.transform.position - GetMouseWorldPos();
@@ -97,12 +97,12 @@ namespace LGAMES.Jenga
             if (jengaPieceSelected == null)
                 return;
 
-            jengaPieceSelected.SetDefaultSkin();
+            jengaPieceSelected.UseDefaultSkin();
             jengaPieceSelected = null;
         }
-        #endregion End Actions --------------------------------------------------------------------
+        #endregion 
 
-        #region Functions -------------------------------------------------------------------------
+        #region :: Functions 
         private Vector3 GetMouseWorldPos()
         {
             Vector3 mousePoint = Mouse.current.position.ReadValue();
@@ -110,7 +110,7 @@ namespace LGAMES.Jenga
 
             return Camera.main.ScreenToWorldPoint(mousePoint);
         }
-        #endregion End Functions ------------------------------------------------------------------
+        #endregion 
 
     }
 }

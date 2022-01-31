@@ -8,21 +8,22 @@ namespace LGAMES.Jenga
 {
     public class InputManager: MonoBehaviour
     {
-        #region Classes ---------------------------------------------------------------------------
+
+        #region :: Class Reference
         private InputMap inputMap;
         private InputController inputController;
         private GameStateManager gameStateManager;
-        #endregion End Classes --------------------------------------------------------------------
+        #endregion
 
-        #region Events ----------------------------------------------------------------------------
+        #region :: Listeners
         public delegate void ListenerMouseLeftClickStart(InputAction.CallbackContext context);
         public static event ListenerMouseLeftClickStart EventMouseLeftClickStart;
 
         public delegate void ListenerMouseLeftClickEnd(InputAction.CallbackContext context);
         public static event ListenerMouseLeftClickEnd EventMouseLeftClickEnd;
-        #endregion Events -------------------------------------------------------------------------
+        #endregion 
 
-        #region Cycles ----------------------------------------------------------------------------
+        #region :: Lifecycles
         private void Awake()
         {
             inputMap = new InputMap();
@@ -45,9 +46,9 @@ namespace LGAMES.Jenga
             inputMap.ScreenInput.MouseLeftClick.started += context => OnMouseLeftClickStart(context);
             inputMap.ScreenInput.MouseLeftClick.canceled += context => OnMouseLeftClickEnd(context);
         }
-        #endregion End Cycles ---------------------------------------------------------------------
+        #endregion
 
-        #region Actions ---------------------------------------------------------------------------
+        #region :: Events 
         private void OnMouseLeftClickStart(InputAction.CallbackContext context)
         {
             if (gameStateManager.GetCurrentGameState() == GameState.GAMESTART)
@@ -63,7 +64,7 @@ namespace LGAMES.Jenga
             if (gameStateManager.GetCurrentGameState() == GameState.GAMESTART)
                 inputController.SetDisabled();
         }
-        #endregion End Actions --------------------------------------------------------------------
+        #endregion
 
     }
 }

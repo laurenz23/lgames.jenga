@@ -8,22 +8,22 @@ namespace LGAMES.Jenga
     public class GameManager : MonoBehaviour
     {
 
-        #region Class Instance --------------------------------------------------------------------
+        #region :: Class Reference
         private static GameManager instance;
 
         public static GameManager Instance()
         {
             return instance;
         }
-        #endregion End Class Instance -------------------------------------------------------------
+        #endregion 
 
-        #region Cycles ----------------------------------------------------------------------------
+        #region :: Lifecycles 
         private void Awake()
         {
             if (instance == null)
                 instance = this;
         }
-        #endregion End Cycles ---------------------------------------------------------------------
+        #endregion 
 
     }
 }
