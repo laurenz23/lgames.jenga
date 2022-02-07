@@ -12,6 +12,8 @@ namespace LGAMES.Jenga
         [SerializeField] private Camera currentCamera;
         [SerializeField] private Transform targetObject;
         //[SerializeField] private float distanceToObject;
+
+        [SerializeField] private float verticalMoveSpeed = 5f;
         #endregion
 
         #region :: Variables
@@ -43,15 +45,26 @@ namespace LGAMES.Jenga
             Vector3 newPosition = currentCamera.ScreenToViewportPoint(Mouse.current.position.ReadValue());
             Vector3 direction = previousPosition - newPosition;
 
-            float rotationAroundYAxis = -direction.x * 180; // camera moves horizontally
-            float rotationAroundXAxis = direction.y * 180; // camera moves vertically
+            // camera rotate horizontally 
+            float rotationAroundXAxis = -direction.x * 180;
+            // camera moves vertically
+            // float rotationAroundYAxis = direction.y * 180;
 
-            transform.position = targetObject.position;
+            if (previousPosition.y > newPosition.y)
+            {
+                transform.position += Time.deltaTime * verticalMoveSpeed * Vector3.up;
+            }
+            else if (previousPosition.y < newPosition.y)
+            {
+                transform.position += Time.deltaTime * verticalMoveSpeed * Vector3.down;
+            }
 
-            transform.Rotate(new Vector3(1, 0, 0),
-                rotationAroundXAxis);
+            // uncomment to apply vertical camera rotation 
+            //transform.Rotate(new Vector3(1, 0, 0),
+            //    rotationAroundYAxis);
+
             transform.Rotate(new Vector3(0, 1, 0),
-                rotationAroundYAxis,
+                rotationAroundXAxis,
                 Space.World); // <— This is what makes it work!
 
             // only works when you apply distanceToObject functionality

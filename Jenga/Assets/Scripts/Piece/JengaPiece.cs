@@ -15,13 +15,20 @@ namespace LGAMES.Jenga
         #endregion 
 
         #region :: Variables 
+        private bool isSelected = false;
+
         private Material defaultSkin;
         private Material hoverSkin;
         private Material selectedSkin;
 
         private Vector3 savedVelocity = Vector3.zero;
         private Vector3 savedAngularVelocity = Vector3.zero;
-        #endregion 
+        #endregion
+
+        #region :: Class Reference
+        [Header("Class Reference")]
+        public JengaPieceCollider jengaPieceCollider;
+        #endregion
 
         #region :: Lifecycles 
         private void OnEnable()
@@ -42,13 +49,18 @@ namespace LGAMES.Jenga
         }
 
         public void SetSkinProperties(
-            Material defaultSkin, 
-            Material hoverSkin, 
+            Material defaultSkin,
+            Material hoverSkin,
             Material selectedSkin)
         {
             this.defaultSkin = defaultSkin;
             this.hoverSkin = hoverSkin;
             this.selectedSkin = selectedSkin;
+        }
+
+        public JengaPieceCollider GetJengaPieceCollider()
+        {
+            return jengaPieceCollider;
         }
         #endregion 
 
@@ -72,7 +84,24 @@ namespace LGAMES.Jenga
         #endregion 
 
         #region :: Functions
-        public void DragPiece(Vector3 newPosition) 
+        public void PieceSelected()
+        {
+            isSelected = true;
+            jengaPieceCollider.enabled = true;
+
+            UseSelectedSkin();
+            Debug.Log("Selected", this);
+        }
+
+        public void PieceUnselected()
+        {
+            isSelected = false;
+            jengaPieceCollider.enabled = false;
+
+            UseDefaultSkin();
+        }
+
+        public void DragPiece(Vector3 newPosition)
         {
             transform.position = newPosition;
         }
@@ -90,6 +119,23 @@ namespace LGAMES.Jenga
         public void UseSelectedSkin()
         {
             _meshRenderer.material = selectedSkin;
+        }
+
+        public void JengaPieceCollisionEnter(Collision collision)
+        {
+            if (collision.transform.GetComponent<JengaPieceCollider>())
+            {
+                _rigidbody.isKinematic = false;
+            }
+        }
+
+        public void JengaPieceCollisionExit(Collision collision)
+        {
+            if (collision.transform.GetComponent<JengaPieceCollider>())
+            {
+                if (isSelected)
+                    _rigidbody.isKinematic = true; 
+            }
         }
         #endregion 
 

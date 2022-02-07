@@ -84,7 +84,7 @@ namespace LGAMES.Jenga
                 if (hit.transform.CompareTag("JengaPiece"))
                 {
                     jengaPieceSelected = hit.transform.GetComponentInParent<JengaPiece>();
-                    jengaPieceSelected.UseSelectedSkin();
+                    jengaPieceSelected.PieceSelected();
 
                     zCoordinate = Camera.main.WorldToScreenPoint(jengaPieceSelected.transform.position).z;
                     offset = jengaPieceSelected.transform.position - GetMouseWorldPos();
@@ -97,7 +97,7 @@ namespace LGAMES.Jenga
             if (jengaPieceSelected == null)
                 return;
 
-            jengaPieceSelected.UseDefaultSkin();
+            jengaPieceSelected.PieceUnselected();
             jengaPieceSelected = null;
         }
         #endregion 

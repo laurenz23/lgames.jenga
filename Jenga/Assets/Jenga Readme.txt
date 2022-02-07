@@ -27,16 +27,38 @@ For Versioning:
 
 
 NOTE: ALWAYS UPDATE VERSION IN UNITY ------------------------------------------
-
-
+Target Relase On Last Sunday of February: Feb 27 2022
 To do for next updates: v0.1.2d
+	- Start working on game arts
+	- Start creating game background
+	- Start creating on UI to push, pull or rotate jenga piece when selected
+	- Create a function that display the number of stories of Jenga Pieces
+	- Improve Jenga Piece Pick Functionality  
+	- Improve Game Physics 
+	- Add functionality where the new story indicator back to previous position when jenga piece is remove
+	on where it is place
+	- Add functionality for Camera to zoom in and zoom out
+	- Refactor 
+
+Bugs:
+	- Remove JengaPiece annoying movement when stack is getting higher.
+	- When Switching between main menu and in game scenes.
+	The lightning at in game scene is not in corrent lightning.
+	- New Story Indicator hides all when one piece is trigger the piece indicator all at once.
+	- New Story Indicator is trigger multiple times, setting new y position very high
+
+Updates Feb 5 - 7 2022: v0.1.2d
 	- Added MainMenu Scene
 	- Added UI Navigation and UI Buttons 
-	- Create a initial functions for UI
-	- Create functionality for Time limit for each player moves
-	- Improve Jenga Piece Pick Functionality 
-	- Improve Game Physics 
-	- Refactor 
+	- Added UI that display the stories of Jenga Pieces
+	- Created initial functions for UI
+	- Created functionality for Time 
+	- Created scene template
+	- Improve Camera Functionality Rotation, Moving
+	- For Camera Rotate at xAxis only, move at yAxis, and zoom at zAxis
+	- Created an initial highlighted story 
+	- Created an function to auto rotate the jenga piece when put at highlighted piece
+	- Create a function to get higher the highlighted story when all are occupied
 
 
 Updates Jan 29 - 30 2022: v0.1.1d

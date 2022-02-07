@@ -44,6 +44,11 @@ namespace LGAMES.Jenga
             if (instance == null)
                 instance = this;
         }
+
+        private void Start()
+        {
+            SetGameState(GameState.GAMESTART);
+        }
         #endregion 
 
         #region :: Properties 
