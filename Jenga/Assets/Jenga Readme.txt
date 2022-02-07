@@ -20,10 +20,10 @@ For Versioning:
 		Reset at:
 			• Reset Every Release
 	- Phases:
-		• d for Development: v1.1.1d  
-		• b for Beta: v1.1.1b
-		• a for Alpha:  v1.1.1a
-		• r for Release: v1.1.1r
+		• d for develop: v1.1.1d  
+		• b for beta: v1.1.1b
+		• a for alpha:  v1.1.1a
+		• r for release: v1.1.1r
 
 
 NOTE: ALWAYS UPDATE VERSION IN UNITY ------------------------------------------
