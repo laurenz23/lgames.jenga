@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8658d85617c77b45bea10525652948d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jengaPieceInvisible: {fileID: -7453050862123001981}
+  jengaPieceIndicator: {fileID: -7453050862123001981}
 --- !u!1 &3237725382529326724
 GameObject:
   m_ObjectHideFlags: 0

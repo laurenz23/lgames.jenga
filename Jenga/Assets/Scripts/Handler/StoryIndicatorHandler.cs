@@ -12,7 +12,7 @@ namespace LGAMES.Jenga
         #endregion
 
         #region :: Class Reference
-        private List<JengaPieceInvisible> jengaPieceInvisibleList;
+        private List<JengaPieceIndicator> jengaPieceIndicatorList;
 
         [Header("Class Reference")]
         [SerializeField] private JengaManager jengaManager;
@@ -21,14 +21,14 @@ namespace LGAMES.Jenga
         #region :: Lifecycle
         private void Start()
         {
-            jengaPieceInvisibleList = jengaManager.GetJengaPieceIndicatorList();
+            jengaPieceIndicatorList = jengaManager.GetJengaPieceIndicatorList();
         }
         #endregion
 
         #region :: Properties
         public bool IsAllOccupied()
         {
-            foreach (JengaPieceInvisible jpi in jengaPieceInvisibleList)
+            foreach (JengaPieceIndicator jpi in jengaPieceIndicatorList)
             {
                 if (!jpi.IsOccupied())
                 {
@@ -37,6 +37,11 @@ namespace LGAMES.Jenga
             }
 
             return true;
+        }
+
+        public Vector3 GetIndicatorRotationEulerAngles()
+        {
+            return jengaPieceIndicatorList[0].transform.eulerAngles;
         }
         #endregion
 
@@ -62,7 +67,7 @@ namespace LGAMES.Jenga
 
         private void SetNewYPosStoryIndicator(float yPos)
         {
-            foreach (JengaPieceInvisible jpi in jengaPieceInvisibleList)
+            foreach (JengaPieceIndicator jpi in jengaPieceIndicatorList)
             {
                 jpi.SetYPosition(yPos);
                 jpi.ShowMesh();

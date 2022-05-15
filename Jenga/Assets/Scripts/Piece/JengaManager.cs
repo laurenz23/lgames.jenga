@@ -10,6 +10,7 @@ namespace LGAMES.Jenga
         #region :: Inspector Variables
         [Header("Jenga Setup")]
         [SerializeField] private int numStory = 12;
+        [SerializeField] private float gravityPull;
         [Header("Jenga Piece")]
         [SerializeField] private GameObject jengaPiece_prefab;
         [SerializeField] private List<Material> defaultSkinList;
@@ -25,17 +26,32 @@ namespace LGAMES.Jenga
         private float jengaPieceWidth;
         private float jengaPieceHeight;
         private float pieceNewYPos = 0;
+
+        private ActionPhase actionPhase;
         #endregion
 
         #region :: Class Reference
+        private static JengaManager instance;
+
         [Header("Class Reference")]
         [SerializeField] private StoryIndicatorHandler storyIndicatorHandler;
 
         private List<JengaPiece> jengaPieceList = new List<JengaPiece>();
-        private List<JengaPieceInvisible> jengaPieceInvisibleList = new List<JengaPieceInvisible>();
+        private List<JengaPieceIndicator> jengaPieceInvisibleList = new List<JengaPieceIndicator>();
+        #endregion
+
+        #region :: Listener
         #endregion
 
         #region :: Lifecycle
+        private void Awake()
+        {
+            if (instance == null)
+            {
+                instance = this;
+            }
+        }
+
         private void Start()
         {
             totalJengaPiece = numPerStory * numStory;
@@ -47,12 +63,22 @@ namespace LGAMES.Jenga
         #endregion
 
         #region :: Properties
+        public static JengaManager GetInstance() 
+        {
+            return instance;
+        }
+
+        public StoryIndicatorHandler GetStoryIndicatorHandler()
+        {
+            return storyIndicatorHandler;
+        }
+
         public List<JengaPiece> GetJengaPieceList()
         {
             return jengaPieceList;
         }
 
-        public List<JengaPieceInvisible> GetJengaPieceIndicatorList()
+        public List<JengaPieceIndicator> GetJengaPieceIndicatorList()
         {
             return jengaPieceInvisibleList;
         }
@@ -86,6 +112,19 @@ namespace LGAMES.Jenga
         {
             return pieceNewYPos;
         }
+
+        public ActionPhase GetActionPhase()
+        {
+            return actionPhase;
+        }
+
+        public void SetActionPhase(ActionPhase actionPhase)
+        {
+            this.actionPhase = actionPhase;
+        }
+        #endregion
+
+        #region :: Events
         #endregion
 
         #region :: Functions
@@ -165,13 +204,13 @@ namespace LGAMES.Jenga
             GameObject newJengaPiece_obj = Instantiate(jengaPiece_prefab);
             JengaPiece jengaPiece = newJengaPiece_obj.GetComponent<JengaPiece>();
             jengaPiece.GetRigidbody().velocity = Vector3.zero;
-            jengaPiece.transform.position = setPosition;
-            jengaPiece.transform.eulerAngles = setRotation;
             jengaPiece.SetSkinProperties(
                 defaultSkinList[skinIndex], 
                 hoverSkin, 
                 selectedSkin);
             jengaPiece.UseDefaultSkin();
+            jengaPiece.SetPosition(setPosition);
+            jengaPiece.transform.eulerAngles = setRotation;
 
             jengaPieceList.Add(jengaPiece);
         }
@@ -179,7 +218,7 @@ namespace LGAMES.Jenga
         public void CreateJengaPieceInvisible(Vector3 setPosition, Vector3 setRotation)
         {
             GameObject newJengaPieceInvisible_obj = Instantiate(jengaPieceInvisible_prefab);
-            JengaPieceInvisible jengaPieceInvisible = newJengaPieceInvisible_obj.GetComponent<JengaPieceInvisible>();
+            JengaPieceIndicator jengaPieceInvisible = newJengaPieceInvisible_obj.GetComponent<JengaPieceIndicator>();
             jengaPieceInvisible.SetStoryIndicatorHandler(storyIndicatorHandler);
             jengaPieceInvisible.transform.position = setPosition;
             jengaPieceInvisible.transform.eulerAngles = setRotation;

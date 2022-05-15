@@ -20,12 +20,20 @@ namespace LGAMES.Jenga
         #region :: Events
         private void OnCollisionEnter(Collision collision)
         {
-            jengaPiece.JengaPieceCollisionEnter(collision);
+            if (jengaPiece.IsSelected())
+            {
+                if (collision.transform.GetComponent<JengaPieceCollider>())
+                    jengaPiece.GetRigidbody().isKinematic = false;
+            }
         }
 
         private void OnCollisionExit(Collision collision)
         {
-            jengaPiece.JengaPieceCollisionExit(collision);
+            if (jengaPiece.IsSelected())
+            {
+                if (collision.transform.GetComponent<JengaPieceCollider>())
+                    jengaPiece.GetRigidbody().isKinematic = true;
+            }
         }
         #endregion
 

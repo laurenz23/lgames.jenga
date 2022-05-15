@@ -21,6 +21,7 @@ namespace LGAMES.Jenga
         private Material hoverSkin;
         private Material selectedSkin;
 
+        private Vector3 defaultPos;
         private Vector3 savedVelocity = Vector3.zero;
         private Vector3 savedAngularVelocity = Vector3.zero;
         #endregion
@@ -28,6 +29,10 @@ namespace LGAMES.Jenga
         #region :: Class Reference
         [Header("Class Reference")]
         public JengaPieceCollider jengaPieceCollider;
+        [HideInInspector] public JengaPieceIndicator jengaPieceIndicator;
+
+        private JengaManager jengaManager;
+        private StoryIndicatorHandler storyIndicatorHandler;
         #endregion
 
         #region :: Lifecycles 
@@ -39,6 +44,12 @@ namespace LGAMES.Jenga
         private void OnDisable()
         {
             GameStateManager.EventGameStateUpdate -= OnGameStateUpdate;
+        }
+
+        private void Start()
+        {
+            jengaManager = JengaManager.GetInstance();
+            storyIndicatorHandler = jengaManager.GetStoryIndicatorHandler();
         }
         #endregion
 
@@ -58,9 +69,29 @@ namespace LGAMES.Jenga
             this.selectedSkin = selectedSkin;
         }
 
+        public void SetPosition(Vector3 position)
+        {
+            transform.position = position;
+            defaultPos = position;
+        }
+
         public JengaPieceCollider GetJengaPieceCollider()
         {
             return jengaPieceCollider;
+        }
+
+        public bool IsSelected()
+        {
+            return isSelected;
+        }
+
+        public bool IsRemoveFromStack()
+        {
+            Vector3 computePos = new Vector3(0f, defaultPos.y, 0f) - transform.position;
+
+            if (computePos.magnitude >= 3.5f)
+                return true;
+            return false;
         }
         #endregion 
 
@@ -88,16 +119,15 @@ namespace LGAMES.Jenga
         {
             isSelected = true;
             jengaPieceCollider.enabled = true;
-
+            IsRemoveFromStack();
             UseSelectedSkin();
-            Debug.Log("Selected", this);
+            jengaManager.SetActionPhase(ActionPhase.REMOVING);
         }
 
         public void PieceUnselected()
         {
             isSelected = false;
             jengaPieceCollider.enabled = false;
-
             UseDefaultSkin();
         }
 
@@ -121,21 +151,14 @@ namespace LGAMES.Jenga
             _meshRenderer.material = selectedSkin;
         }
 
-        public void JengaPieceCollisionEnter(Collision collision)
+        public void MoveToPieceIndicator() 
         {
-            if (collision.transform.GetComponent<JengaPieceCollider>())
-            {
-                _rigidbody.isKinematic = false;
-            }
-        }
-
-        public void JengaPieceCollisionExit(Collision collision)
-        {
-            if (collision.transform.GetComponent<JengaPieceCollider>())
-            {
-                if (isSelected)
-                    _rigidbody.isKinematic = true; 
-            }
+            jengaManager.SetActionPhase(ActionPhase.STACKING);
+            transform.position = new Vector3(
+                0f, 
+                jengaManager.GetJengaNextStory() + jengaManager.GetJengaPieceHeight(), 
+                0f);
+            transform.eulerAngles = storyIndicatorHandler.GetIndicatorRotationEulerAngles();
         }
         #endregion 
 

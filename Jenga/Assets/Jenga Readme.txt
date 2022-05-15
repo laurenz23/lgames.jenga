@@ -28,12 +28,20 @@ For Versioning:
 
 NOTE: ALWAYS UPDATE VERSION IN UNITY ------------------------------------------
 Target Relase On Last Sunday of February: Feb 27 2022
-To do for next updates: v0.1.2d
+To do for next updates: v0.1.4d
 	- Start working on game arts
 	- Start creating game background
 	- Start creating on UI to push, pull or rotate jenga piece when selected
 	- Create a function that display the number of stories of Jenga Pieces
 	- Improve Jenga Piece Pick Functionality  
+	- Replace a camera to Cinemachine
+	- Create 3 cameras:
+		• First Camera for player selecting and removing the jenga piece from stack
+		• Second Camera for transition, moving the first camera to third camera
+		• Third Camera for arranging the jenga piece to new story indicator
+
+
+Doing for this updates: v0.1.3d
 	- Improve Game Physics 
 	- Add functionality where the new story indicator back to previous position when jenga piece is remove
 	on where it is place
@@ -41,11 +49,24 @@ To do for next updates: v0.1.2d
 	- Refactor 
 
 Bugs:
-	- Remove JengaPiece annoying movement when stack is getting higher.
 	- When Switching between main menu and in game scenes.
-	The lightning at in game scene is not in corrent lightning.
-	- New Story Indicator hides all when one piece is trigger the piece indicator all at once.
-	- New Story Indicator is trigger multiple times, setting new y position very high
+	The lightning at in game scene is not in correct lightning.
+
+
+Updates Feb 12 - 16 2022: v0.1.3d
+	- Bug Fixes:
+		• New Story Indicator hides all when one jenga piece is trigger the piece indicator all at once
+		• New Story Indicator is trigger multiple times, setting new y position very high
+		• Remove JengaPiece annoying movement when stack is getting higher.
+	- Refactor
+	- Improve game physics:
+		• Modified JengaPiece Prefab mass to 100,000
+		• Modified Game Gravity force at GameManager to -20f
+	- Added a action phase when stacking the jenga piece
+	- Added a functionality to check if inside or outside of the stack
+	- Added a functionality when a selected jenga piece is removed successfully from the stack
+	it will move automatically to the highest point of jenga story
+
 
 Updates Feb 5 - 7 2022: v0.1.2d
 	- Added MainMenu Scene

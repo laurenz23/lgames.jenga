@@ -25,6 +25,7 @@ namespace LGAMES.Jenga
 
         #region :: Class Reference
         [SerializeField] private CameraManager cameraManager;
+        [SerializeField] private JengaManager jengaManager;
         #endregion 
 
         #region :: Lifecycles 
@@ -81,7 +82,7 @@ namespace LGAMES.Jenga
 
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.transform.CompareTag("JengaPiece"))
+                if (hit.transform.CompareTag(nameof(JengaPiece)))
                 {
                     jengaPieceSelected = hit.transform.GetComponentInParent<JengaPiece>();
                     jengaPieceSelected.PieceSelected();
@@ -96,6 +97,10 @@ namespace LGAMES.Jenga
         {
             if (jengaPieceSelected == null)
                 return;
+
+            if (jengaManager.GetActionPhase() == ActionPhase.REMOVING)
+                if (jengaPieceSelected.IsRemoveFromStack())
+                    jengaPieceSelected.MoveToPieceIndicator();
 
             jengaPieceSelected.PieceUnselected();
             jengaPieceSelected = null;

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace LGAMES.Jenga
 {
-    public class JengaPieceInvisible : MonoBehaviour
+    public class JengaPieceIndicator : MonoBehaviour
     {
 
         #region :: Inspector Variables
@@ -14,7 +14,6 @@ namespace LGAMES.Jenga
         #endregion
 
         #region :: Class Reference
-        private JengaPiece jengaPiece;
         private StoryIndicatorHandler storyIndicatorHandler;
         #endregion
 
@@ -50,33 +49,18 @@ namespace LGAMES.Jenga
         #endregion
 
         #region :: Functions
-        public void OnJengaPieceEnter(Collider collider)
+        public void SlotOccupied()
         {
-            if (collider.GetComponent<JengaPieceCollider>())
-            {
-                jengaPiece = collider.GetComponentInParent<JengaPiece>();
-                jengaPiece.transform.rotation = transform.rotation;
-                jengaPiece.GetRigidbody().isKinematic = false;
-
-                storyIndicatorHandler.NewStoryIndicator();
-                HideMesh();
-
-                isOccupied = true;
-            }
+            isOccupied = true;
+            storyIndicatorHandler.NewStoryIndicator();
+            HideMesh();
         }
 
-        public void OnJengaPieceExit(Collider collider)
+        public void SlotUnccupied()
         {
-            if (collider.GetComponent<JengaPieceCollider>())
-            {
-                jengaPiece.GetRigidbody().isKinematic = true;
-                jengaPiece = null;
-
-                storyIndicatorHandler.NewStoryIndicator();
-                ShowMesh();
-
-                isOccupied = false;
-            }
+            isOccupied = false;
+            storyIndicatorHandler.NewStoryIndicator();
+            ShowMesh();
         }
         #endregion
 
